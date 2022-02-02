@@ -1,5 +1,5 @@
 """
-WSGI config for _r project.
+WSGI config for oxford project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', '_r.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'oxford.settings')
 
 application = get_wsgi_application()
