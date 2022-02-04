@@ -28,7 +28,9 @@ class Building(Base):
 
     @property
     def total_classrooms(self):
-        return self.classrooms.all().count()
+        return ClassRoom.objects.filter(floor__in=Floor.objects.filter(building=self)).count()
+
+    total_classrooms.fget.short_description = "Total de salones"
 
     class Meta:
         verbose_name = "edificio"

@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_active')
+    list_display = ('name', 'total_classrooms', 'is_active')
     search_fields = ('name',)
 
 
