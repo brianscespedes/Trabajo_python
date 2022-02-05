@@ -27,7 +27,7 @@ class Person(models.Model):
     number_id = models.CharField(max_length=14, verbose_name="número de cédula")
     address = models.TextField(max_length=255, verbose_name="dirección")
     phone_number = models.CharField(max_length=8, verbose_name="número de teléfono")
-    date_of_bird = models.DateField(verbose_name="fecha de nacimiento")
+    date_of_bird = models.DateField(verbose_name="fecha de nacimiento", null=False, blank=False)
 
     class Meta:
         abstract = True
@@ -95,7 +95,7 @@ class Program(Base):
 
     @property
     def duration(self):
-        return timedelta(weeks=self.course_set.all().aggregate(Sum('weeks'))['weeks__sum'] or 0)
+        return timedelta(weeks=self.course_set.all().aggregate(Sum('weeks'))['weeks__sum'] or 0).days / 365
 
 
 class Course(Base):

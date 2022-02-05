@@ -6,7 +6,7 @@ from django.urls import reverse
 
 def index(request):
     return render(request, 'frontend/index.html', {
-        'courses': Course.objects.all(),
+        'programs': Program.objects.all(),
         'students': Student.objects.all(),
     })
 
