@@ -23,6 +23,9 @@ class Person(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return " ".join([self.first_name, self.last_name])
+
 
 class Building(Base):
 
@@ -87,6 +90,8 @@ class Program(Base):
 
 class Course(Base):
     program = models.ForeignKey(Program, on_delete=models.PROTECT, verbose_name="programa")
+    professor = models.ForeignKey(Professor, on_delete=models.PROTECT, verbose_name="Profesor",
+                                  null=True)
 
     class Meta:
         verbose_name = "curso"
