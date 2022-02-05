@@ -1,6 +1,15 @@
 {% extends 'frontend/index.html' %}
 {% load crispy_forms_filters %}
 
+{% block style %}
+    {{ block.super }}
+    <style type="text/css">
+        tr.active {
+            background-color: yellow;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -38,6 +47,7 @@
 {% block javascript %}
     {{ block.super }}
     <script type="text/javascript">
+
       $(document).ready(function () {
 
         $(document).on('change', '#id_program', function () {
@@ -55,14 +65,36 @@
               const $courses = $('#table-courses').empty();
               $.each(response, function (i, o) {
                 $courses.append(`<tr>
+                        <td><input type="checkbox" class="select-course"></td>
                         <td>${o.name}</td>
-                        <td>${o.cost}</td>
                         <td>${o.professor}</td>
+                        <td class="cost">${o.cost}</td>
+                        <td class="weeks">${o.weeks}</td>
                     </tr>`);
               })
             }
           });
         });
+
+
+        $(document).on('change', '.select-course', function () {
+          const _this = $(this);
+          const $tr = _this.parents('tr');
+          if (_this.is(':checked')) {
+            $tr.addClass('active');
+          } else {
+            $tr.removeClass('active');
+          }
+          const table = $('#table-courses tr.active');
+          let total = 0;
+          let duration = 0;
+          $.each(table, function (i, tr) {
+            total += parseFloat($(tr).find('.cost').html());
+            duration += parseFloat($(tr).find('.weeks').html());
+          })
+          $('#total-cost').val(total);
+          $('#total-weeks').val(duration);
+        })
 
       })
     </script>

@@ -1,9 +1,11 @@
 <table class="table">
     <thead>
     <tr>
+        <th></th>
         <th>Curso</th>
-        <th>Precio</th>
         <th>Profesor</th>
+        <th>Precio</th>
+        <th>Duracion (semanas)</th>
     </tr>
     </thead>
     <tbody id="table-{{ widget.name }}">
@@ -14,4 +16,13 @@
         </tr>
     {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+            <th>Totales</th>
+            <th></th>
+            <th>-</th>
+            <th><input type="text" readonly id="total-cost"></th>
+            <th><input type="text" readonly  id="total-weeks"></th>
+        </tr>
+    </tfoot>
 </table>
