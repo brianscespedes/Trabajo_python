@@ -102,6 +102,12 @@ class Course(Base):
     class Meta:
         verbose_name = "curso"
 
+    def to_json(self):
+        o = super().to_json()
+        if self.id:
+            o['professor'] = str(self.professor)
+        return o
+
 
 class Enrollment(Base):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="estudiante")

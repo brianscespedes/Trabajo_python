@@ -56,6 +56,8 @@
               $.each(response, function (i, o) {
                 $courses.append(`<tr>
                         <td>${o.name}</td>
+                        <td>${o.cost}</td>
+                        <td>${o.professor}</td>
                     </tr>`);
               })
             }
