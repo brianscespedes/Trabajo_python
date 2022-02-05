@@ -52,7 +52,7 @@ class StudentAdmin(ImportExportModelAdmin):
 
 @admin.register(Program)
 class ProgramAdmin(ImportExportModelAdmin):
-    list_display = ('name', 'is_active')
+    list_display = ('name', 'duration', 'is_active')
     list_filter = ('is_active',)
 
 

@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models import Sum
 from django.forms import model_to_dict
+from datetime import timedelta
 
 
 class Base(models.Model):
@@ -87,10 +89,13 @@ class Student(Person):
 
 
 class Program(Base):
-    duration = models.PositiveIntegerField(default=5, verbose_name="duración en años")
 
     class Meta:
         verbose_name = 'programa'
+
+    @property
+    def duration(self):
+        return timedelta(weeks=self.course_set.all().aggregate(Sum('weeks'))['weeks__sum'] or 0)
 
 
 class Course(Base):
@@ -98,6 +103,7 @@ class Course(Base):
     professor = models.ForeignKey(Professor, on_delete=models.PROTECT, verbose_name="Profesor",
                                   null=True)
     cost = models.FloatField(default=0.0, verbose_name="precio del curso")
+    weeks = models.PositiveSmallIntegerField(default=5, verbose_name="duracción en semanas del curso")
 
     class Meta:
         verbose_name = "curso"
