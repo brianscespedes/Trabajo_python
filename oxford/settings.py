@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'frontend',
     'backend',
     'import_export',
+    'adminactions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
