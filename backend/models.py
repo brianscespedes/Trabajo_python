@@ -97,6 +97,10 @@ class Program(Base):
     def duration(self):
         return timedelta(weeks=self.course_set.all().aggregate(Sum('weeks'))['weeks__sum'] or 0).days / 365
 
+    @property
+    def full_cost(self):
+        return self.course_set.all().aggregate(Sum('cost'))['cost__sum'] or 0.0
+
 
 class Course(Base):
     program = models.ForeignKey(Program, on_delete=models.PROTECT, verbose_name="programa")
