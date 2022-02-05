@@ -28,7 +28,12 @@ def nueva_matricula(request):
                                 safe=False)
         form = form(request.POST)
         if form.is_valid():
-            form.save()
+            estudiante = form.save()
+            matricula = Enrollment(student=estudiante, program_id=request.POST.get('program'))
+            matricula.save()
+            courses = request.POST.getlist('courses')
+            for course in courses:
+                Grades(enrollment=matricula, course_id=course).save()
             return HttpResponseRedirect(reverse('frontend:matriculas'))
     return render(request, 'frontend/nueva-matricula.html', {
         'form': form,
