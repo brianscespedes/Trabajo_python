@@ -107,6 +107,7 @@ class Course(Base):
     professor = models.ForeignKey(Professor, on_delete=models.PROTECT, verbose_name="Profesor",
                                   null=True)
     cost = models.FloatField(default=0.0, verbose_name="precio del curso")
+    credit = models.IntegerField(default=0, verbose_name= "creditos del curso")
     weeks = models.PositiveSmallIntegerField(default=5, verbose_name="duracción en semanas del curso")
 
     class Meta:

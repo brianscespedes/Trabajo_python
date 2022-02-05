@@ -58,5 +58,5 @@ class ProgramAdmin(ImportExportModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):
-    list_display = ('name', 'professor', 'weeks', 'program', 'cost', 'is_active')
+    list_display = ('name', 'professor', 'weeks', 'program', 'cost', 'credit', 'is_active')
     list_filter = ('program', 'is_active',)
