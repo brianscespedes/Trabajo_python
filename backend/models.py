@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 
 
 class Base(models.Model):
@@ -10,6 +11,12 @@ class Base(models.Model):
 
     class Meta:
         abstract = True
+
+    def to_json(self):
+        try:
+            return model_to_dict(self)
+        except (KeyError, ValueError):
+            return {}
 
 
 class Person(models.Model):
@@ -56,13 +63,11 @@ class ClassRoom(Base):
 
 
 class Shift(Base):
-
     class Meta:
         verbose_name = "turno"
 
 
 class ProfessorType(Base):
-
     class Meta:
         verbose_name = "tipo de profesór"
         verbose_name_plural = "tipos de profesóres"
@@ -77,13 +82,11 @@ class Professor(Person):
 
 
 class Student(Person):
-
     class Meta:
         verbose_name = "estudiante"
 
 
 class Program(Base):
-
     class Meta:
         verbose_name = 'programa'
 

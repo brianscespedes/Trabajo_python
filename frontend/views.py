@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from backend.models import *
+from django.http import JsonResponse
 from .forms import *
 from django.urls import reverse
 
@@ -20,6 +20,9 @@ def matriculas(request):
 def nueva_matricula(request):
     form = MatriculaForm
     if request.method == "POST":
+        if 'get_courses' in request.POST:
+            return JsonResponse([x.to_json() for x in Course.objects.filter(program_id=request.POST.get('program'))],
+                                safe=False)
         form = form(request.POST)
         if form.is_valid():
             form.save()

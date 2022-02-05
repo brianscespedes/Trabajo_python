@@ -7,7 +7,6 @@
             <div class="col">
                 <form action="." method="post" novalidate>
                     {% csrf_token %}
-
                     <fieldset>
                         <div class="row">
                             <div class="col">{{ form.first_name|as_crispy_field }}</div>
@@ -33,4 +32,36 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript">
+      $(document).ready(function () {
+
+        $(document).on('change', '#id_program', function () {
+          const _this = $(this);
+          const token = $('input[name="csrfmiddlewaretoken"]').val();
+          console.log(_this, token);
+          $.ajax('.', {
+            method: "post",
+            data: {
+              get_courses: 'get_courses',
+              program: _this.val(),
+              csrfmiddlewaretoken: token,
+            },
+            success: function (response) {
+              const $courses = $('#table-courses').empty();
+              $.each(response, function (i, o) {
+                $courses.append(`<tr>
+                        <td>${o.name}</td>
+                    </tr>`);
+              })
+            }
+          });
+        });
+
+      })
+    </script>
 {% endblock %}
