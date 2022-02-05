@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-rfm9z=q2vg!@k$5%7i_(xihqpqi(!=##tbt^vziqif3h13dg=b
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # MUCHACHOS CAMBIAR A TRUE PARA PROBAR EN LOCAL
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -35,12 +35,14 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'frontend',
     'backend',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +72,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'oxford.wsgi.application'
 

@@ -1,0 +1,36 @@
+{% extends 'frontend/index.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="." method="post" novalidate>
+                    {% csrf_token %}
+
+                    <fieldset>
+                        <div class="row">
+                            <div class="col">{{ form.first_name|as_crispy_field }}</div>
+                            <div class="col">{{ form.last_name|as_crispy_field }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form.number_id|as_crispy_field }}</div>
+                            <div class="col">{{ form.phone_number|as_crispy_field }}</div>
+                            <div class="col">{{ form.date_of_bird|as_crispy_field }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form.address|as_crispy_field }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form.program|as_crispy_field }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form.courses|as_crispy_field }}</div>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

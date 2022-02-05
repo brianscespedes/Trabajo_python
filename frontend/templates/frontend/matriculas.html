@@ -1,66 +1,68 @@
 {% extends 'frontend/index.html' %}
+{% load crispy_forms_filters %}
+
+{% block  breadcrumb %}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'frontend:index' %}">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="#">Matriculas</a></li>
+            {#            <li class="breadcrumb-item active" aria-current="page">Data</li>#}
+        </ol>
+    </nav>
+
+{% endblock %}
 
 
 {% block content %}
     <div class="container">
         <h1 style="display: flex; justify-content: center; align-items: center">Matriculas</h1>
+        <div class="row" style="margin: 10px 0;">
+            <div class="col-md-8">
+                <input type="text" placeholder="Buscar" class="form-control"
+                style="width: 100%">
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'frontend:nueva_matricula' %}" class="btn btn-info float-right">Nueva matrícula</a>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th colspan="6" style="display: flex; justify-content: flex-end; padding-right: 2em">
-                    <input type="text" class="" placeholder="Buscar" style="margin: 0 20px 0 20px; width: 80%; height:
-                25pt; border-radius: 10px; padding: 5px">
-                    <button class="btn btn-primary"> Nueva
-                        matricula
-                    </button>
-                </th>
-                <th>
-                    total
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Cesar abel
-                </td>
-                <td>Ramirez</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>Cesar abel
-                </td>
-                <td>Ramirez</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>Cesar abel
-                </td>
-                <td>Ramirez</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-            </tr>
-            <tr>
-                <td>Cesar abel
-                </td>
-                <td>Ramirez</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-            </tr>
-            </tbody>
-        </table>
+                <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Identificación</th>
+                    <th>Número de teléfono</th>
+                    <th>Fecha de nacimiento</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for matricula in matriculas %}
+                    <tr>
+                        <td>{{ matricula.first_name }}</td>
+                        <td>{{ matricula.last_name }}</td>
+                        <td>{{ matricula.number_id }}</td>
+                        <td>{{ matricula.phone_number }}</td>
+                        <td>{{ matricula.date_of_bird }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 
-    {{ form.as_p }}
+
+
+
 {% endblock %}

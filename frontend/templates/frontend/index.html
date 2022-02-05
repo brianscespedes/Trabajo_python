@@ -8,41 +8,55 @@
     <title>Universidad de Oxford</title>
 
     {% block style %}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+              integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
               crossorigin="anonymous">
     {% endblock %}
 
 </head>
 <body>
 {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Universidad de Oxford</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'frontend:index' %}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'frontend:matriculas' %}">Matrículas</a>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
+    <nav id="navbar-example2" class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">Universidad de Oxford</a>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'frontend:index' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'frontend:matriculas' %}">Matriculas</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">{% if user.is_authenticated %}{{ user.get_full_name }}
+                {% else %}Ingresa{% endif %}</a>
+
+                {% if user.is_authenticated %}
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Mi cuenta</a>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'admin:logout' %}">Salir</a>
+                    </div>
+                {% else %}
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Crea una cuenta</a>
+                    </div>
+                {% endif %}
+            </li>
+        </ul>
     </nav>
 {% endblock %}
 
+{% block  breadcrumb %}{% endblock %}
+
 {% block content %}
+
+    <div class="jumbotron">
+        <h1 class="display-4">Bienvenido!</h1>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus accusantium aut autem
+            consequuntur delectus dignissimos dolor, illum ipsam iusto maiores nemo, nesciunt nulla praesentium
+            repudiandae sequi sint veritatis vero.</p>
+    </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -97,9 +111,13 @@
 {% block javascript %}
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
             crossorigin="anonymous"></script>
 {% endblock %}
+
 </body>
 </html>

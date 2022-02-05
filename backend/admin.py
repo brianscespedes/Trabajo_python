@@ -1,15 +1,16 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 from .models import *
 
 
 @admin.register(Building)
-class BuildingAdmin(admin.ModelAdmin):
+class BuildingAdmin(ImportExportModelAdmin):
     list_display = ('name', 'total_classrooms', 'is_active')
     search_fields = ('name',)
 
 
 @admin.register(Floor)
-class FloorAdmin(admin.ModelAdmin):
+class FloorAdmin(ImportExportModelAdmin):
     list_display = ('name', 'building', 'is_active')
     search_fields = ('name',)
     list_filter = ('building',)
@@ -17,7 +18,7 @@ class FloorAdmin(admin.ModelAdmin):
 
 
 @admin.register(ClassRoom)
-class ClassRoomAdmin(admin.ModelAdmin):
+class ClassRoomAdmin(ImportExportModelAdmin):
     list_display = ('name', 'floor', 'is_active')
     search_fields = ('name',)
     list_filter = ('floor',)
@@ -25,37 +26,37 @@ class ClassRoomAdmin(admin.ModelAdmin):
 
 
 @admin.register(Shift)
-class ShiftAdmin(admin.ModelAdmin):
+class ShiftAdmin(ImportExportModelAdmin):
     list_display = ('name', 'is_active')
     search_fields = ('name',)
 
 
 @admin.register(ProfessorType)
-class ProfessorTypeAdmin(admin.ModelAdmin):
+class ProfessorTypeAdmin(ImportExportModelAdmin):
     list_display = ('name', 'is_active')
     search_fields = ('name',)
 
 
 @admin.register(Professor)
-class ProfessorAdmin(admin.ModelAdmin):
+class ProfessorAdmin(ImportExportModelAdmin):
     list_display = ('first_name', 'last_name', 'number_id', 'phone_number')
     search_fields = ('first_name', 'last_name', 'number_id', 'phone_number')
     list_filter = ('professor_type',)
 
 
 @admin.register(Student)
-class StudentAdmin(admin.ModelAdmin):
+class StudentAdmin(ImportExportModelAdmin):
     list_display = ('first_name', 'last_name', 'number_id', 'phone_number')
     search_fields = ('first_name', 'last_name', 'number_id', 'phone_number')
 
 
 @admin.register(Program)
-class ProgramAdmin(admin.ModelAdmin):
+class ProgramAdmin(ImportExportModelAdmin):
     list_display = ('name', 'is_active')
     list_filter = ('is_active',)
 
 
 @admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(ImportExportModelAdmin):
     list_display = ('name', 'is_active')
     list_filter = ('is_active',)

@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from backend.models import *
-from django.forms import modelform_factory
+from .forms import *
+from django.urls import reverse
 
 
 def index(request):
     return render(request, 'frontend/index.html', {
-        'user': request.user,
         'courses': Course.objects.all(),
         'students': Student.objects.all(),
     })
@@ -13,14 +13,17 @@ def index(request):
 
 def matriculas(request):
     return render(request, 'frontend/matriculas.html', {
-        'user': request.user,
-        'matriculas': Course.objects.all(),
-        'form': modelform_factory(Student, fields="__all__"),
+        'matriculas': Student.objects.all(),
     })
 
 
 def nueva_matricula(request):
-    return render(request, 'frontend/matriculas.html', {
-        'user': request.user,
-        'form': modelform_factory(Student, fields="__all__"),
+    form = MatriculaForm
+    if request.method == "POST":
+        form = form(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('frontend:matriculas'))
+    return render(request, 'frontend/nueva-matricula.html', {
+        'form': form,
     })

@@ -1,0 +1,18 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th style="text-align: center; vertical-align: middle">
+            <input type="checkbox">
+        </th>
+        <th>Curso</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for choise in widget.attrs.choises %}
+        <tr>
+            <td><input type="checkbox"><input type="hidden" name="course" value="{{ choise.id }}"></td>
+            <td>{{ choise.name }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
