@@ -1,7 +1,9 @@
+import statistics
+
 from django.db import models
 from django.db.models import Sum
 from django.forms import model_to_dict
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 
 class Base(models.Model):
@@ -34,6 +36,26 @@ class Person(models.Model):
 
     def __str__(self):
         return " ".join([self.first_name, self.last_name])
+
+    @property
+    def age(self):
+        return round((datetime.now() - datetime(year=self.date_of_bird.year, month=self.date_of_bird.month,
+                                                day=self.date_of_bird.day)).days / 356, 0)
+
+    @classmethod
+    def statistics(cls):
+        data = [x.age for x in cls.objects.all()]
+        return statistics.median(data), statistics.mode(data)
+
+    @classmethod
+    def moda(cls):
+        data = [x.age for x in cls.objects.all()]
+        return statistics.mode(data)
+
+    @classmethod
+    def moda(cls):
+        data = [x.age for x in cls.objects.all()]
+        return statistics.mode(data)
 
 
 class Building(Base):
@@ -89,7 +111,6 @@ class Student(Person):
 
 
 class Program(Base):
-
     class Meta:
         verbose_name = 'programa'
 
@@ -107,7 +128,8 @@ class Course(Base):
     professor = models.ForeignKey(Professor, on_delete=models.PROTECT, verbose_name="Profesor",
                                   null=True)
     cost = models.FloatField(default=0.0, verbose_name="precio del curso")
-    credit = models.IntegerField(default=0, verbose_name= "creditos del curso")
+    credit = models.IntegerField(default=0, verbose_name="creditos del curso")
+    grade = models.IntegerField(default=0, verbose_name="notas del curso")
     weeks = models.PositiveSmallIntegerField(default=5, verbose_name="duracción en semanas del curso")
 
     class Meta:
@@ -129,3 +151,30 @@ class Grades(Base):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, verbose_name="matricula")
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="curso", null=True)
     grade = models.IntegerField(default=0, verbose_name="nota")
+
+
+def _statistics(cls, field):
+    a, b, c, d, e = 0, 0, 0, 0, 0
+    data = [getattr(cls, field, 0) for x in cls.objects.all()]
+    try:
+        a = statistics.median(data)
+    except TypeError:
+        pass
+    try:
+        b = statistics.mode(data)
+    except TypeError:
+        pass
+    try:
+        c = statistics.mean(data)
+    except TypeError:
+        pass
+    try:
+        d = min(data)
+    except TypeError:
+        pass
+    try:
+        e = max(data)
+    except TypeError:
+        pass
+
+    return a, b, c, d, e

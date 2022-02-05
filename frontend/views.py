@@ -2,12 +2,15 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.http import JsonResponse
 from .forms import *
 from django.urls import reverse
+from backend.models import _statistics
 
 
 def index(request):
     return render(request, 'frontend/index.html', {
         'programs': Program.objects.all(),
         'students': Student.objects.all(),
+        'statistics_student': _statistics(Course, 'credit'),
+        'statistics_course': _statistics(Course, 'credit'),
     })
 
 

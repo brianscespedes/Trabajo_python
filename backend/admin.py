@@ -46,7 +46,7 @@ class ProfessorAdmin(ImportExportModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(ImportExportModelAdmin):
-    list_display = ('first_name', 'last_name', 'number_id', 'phone_number')
+    list_display = ('first_name', 'last_name', 'number_id', 'phone_number', 'date_of_bird', 'age')
     search_fields = ('first_name', 'last_name', 'number_id', 'phone_number')
 
 
@@ -58,5 +58,5 @@ class ProgramAdmin(ImportExportModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(ImportExportModelAdmin):
-    list_display = ('name', 'professor', 'weeks', 'program', 'cost', 'credit', 'is_active')
+    list_display = ('name', 'professor', 'weeks', 'program', 'cost', 'credit', 'grade', 'is_active')
     list_filter = ('program', 'is_active',)
