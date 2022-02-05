@@ -87,6 +87,8 @@ class Student(Person):
 
 
 class Program(Base):
+    duration = models.PositiveIntegerField(default=5, verbose_name="duración en años")
+
     class Meta:
         verbose_name = 'programa'
 
@@ -95,6 +97,7 @@ class Course(Base):
     program = models.ForeignKey(Program, on_delete=models.PROTECT, verbose_name="programa")
     professor = models.ForeignKey(Professor, on_delete=models.PROTECT, verbose_name="Profesor",
                                   null=True)
+    cost = models.FloatField(default=0.0, verbose_name="precio del curso")
 
     class Meta:
         verbose_name = "curso"
