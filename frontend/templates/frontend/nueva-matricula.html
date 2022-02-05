@@ -7,6 +7,9 @@
         tr.active {
             background-color: yellow;
         }
+        .numeric{
+            text-align: right;
+        }
     </style>
 {% endblock %}
 
@@ -65,11 +68,14 @@
               const $courses = $('#table-courses').empty();
               $.each(response, function (i, o) {
                 $courses.append(`<tr>
-                        <td><input type="checkbox" class="select-course"></td>
+                        <td>
+                            <input type="checkbox" class="select-course">
+                            <input type="hidden" value=${o.id} class="course-container">
+                        </td>
                         <td>${o.name}</td>
                         <td>${o.professor}</td>
-                        <td class="cost">${o.cost}</td>
-                        <td class="weeks">${o.weeks}</td>
+                        <td class="numeric weeks">${o.weeks}</td>
+                        <td class="numeric cost">${o.cost}</td>
                     </tr>`);
               })
             }
@@ -82,8 +88,10 @@
           const $tr = _this.parents('tr');
           if (_this.is(':checked')) {
             $tr.addClass('active');
+            $tr.find('.course-container').attr('name', 'course');
           } else {
             $tr.removeClass('active');
+            $tr.find('.course-container').removeAttr('name');
           }
           const table = $('#table-courses tr.active');
           let total = 0;

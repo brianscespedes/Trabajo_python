@@ -4,8 +4,8 @@
         <th></th>
         <th>Curso</th>
         <th>Profesor</th>
-        <th>Precio</th>
-        <th>Duracion (semanas)</th>
+        <th class="numeric">Duracion (semanas)</th>
+        <th class="numeric">Precio</th>
     </tr>
     </thead>
     <tbody id="table-{{ widget.name }}">
@@ -21,8 +21,8 @@
             <th>Totales</th>
             <th></th>
             <th>-</th>
-            <th><input type="text" readonly id="total-cost"></th>
-            <th><input type="text" readonly  id="total-weeks"></th>
+            <th class="numeric"><input type="text" readonly  id="total-weeks" class="numeric"></th>
+            <th class="numeric"><input type="text" readonly id="total-cost" class="numeric"></th>
         </tr>
     </tfoot>
 </table>
