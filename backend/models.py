@@ -97,3 +97,12 @@ class Course(Base):
         verbose_name = "curso"
 
 
+class Enrollment(Base):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="estudiante")
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, verbose_name="carrera")
+
+
+class Grades(Base):
+    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, verbose_name="matricula")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="curso", null=True)
+    grade = models.IntegerField(default=0, verbose_name="nota")
